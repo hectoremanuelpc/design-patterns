@@ -14,7 +14,9 @@ The repository is organized into three folders:
         - Factory Method
         - Abstract Factory
         - Builder
+        - Prototype
         - Immutable
+        - Factory Function
 
 2. **Structural Patterns**
 
