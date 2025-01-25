@@ -53,21 +53,6 @@ The Factory Function pattern is a simple function that creates and returns objec
 
 The Prototype pattern is used to create new objects by copying an existing object, known as the prototype. This pattern is useful for creating objects when the cost of creating a new instance is expensive or complex.
 
-## Getting Started
-
-To get started with the examples in this repository, clone with the following:
-
-```bash
-git clone https://github.com/hectoremanuelpc/design-patterns.git
-cd design-patterns
-```
-
-You can then run the examples using:
-
-```bash
-deno pattern.ts
-```
-
 ## Contributing
 
 Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.

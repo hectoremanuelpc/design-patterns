@@ -58,6 +58,21 @@ Learn more about:
 -   Learn how to implement these patterns with real-world examples.
 -   Improve code readability, reusability, and maintainability.
 
+## Getting Started
+
+To get started with the examples in this repository, clone with the following:
+
+```bash
+git clone https://github.com/hectoremanuelpc/design-patterns.git
+cd design-patterns
+```
+
+You can then run the examples using:
+
+```bash
+deno pattern.ts
+```
+
 ## Additional Resources
 
 This repository follows the ["Patrones de Diseño: Soluciones prácticas y eficientes" course](https://cursos.devtalles.com/courses/patrones-diseno) by Fernando Herrera.
