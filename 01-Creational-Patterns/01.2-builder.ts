@@ -11,7 +11,7 @@
  * * que lo componen.
  */
 
-import { COLORS } from '../helpers/colors.ts';
+import { COLORS } from "../helpers/colors.ts";
 
 //! Tarea: crear un QueryBuilder para construir consultas SQL
 /**
@@ -39,49 +39,65 @@ import { COLORS } from '../helpers/colors.ts';
 //! Solución
 
 class QueryBuilder {
-  private table: string;
-  private fields: string[] = [];
-  private conditions: string[] = [];
-  private orderFields: string[] = [];
-  private limitCount?: number;
+    private table: string;
+    private fields: string[] = [];
+    private conditions: string[] = [];
+    private orderFields: string[] = [];
+    private limitCount?: number;
 
-  constructor(table: string) {
-    this.table = table;
-  }
+    constructor(table: string) {
+        this.table = table;
+    }
 
-  select(...fields: string[]): QueryBuilder {
-    throw new Error('Method not implemented.');
-  }
+    select(...fields: string[]): QueryBuilder {
+        this.fields = fields.length > 0 ? fields : ["*"];
+        return this;
+    }
 
-  where(condition: string): QueryBuilder {
-    throw new Error('Method not implemented.');
-  }
+    where(condition: string): QueryBuilder {
+        this.conditions.push(condition);
+        return this;
+    }
 
-  orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): QueryBuilder {
-    throw new Error('Method not implemented.');
-  }
+    orderBy(field: string, direction: "ASC" | "DESC" = "ASC"): QueryBuilder {
+        this.orderFields.push(`${field} ${direction}`);
+        return this;
+    }
 
-  limit(count: number): QueryBuilder {
-    throw new Error('Method not implemented.');
-  }
+    limit(count: number): QueryBuilder {
+        this.limitCount = count;
+        return this;
+    }
 
-  execute(): string {
-    // Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10;
-    throw new Error('Method not implemented.');
-  }
+    execute(): string {
+        // Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10;
+        let res = `SELECT ${this.fields.join(", ")} FROM ${this.table}`;
+        if (this.conditions.length > 0) {
+            res += ` WHERE ${this.conditions.join(" AND ")}`;
+        }
+        if (this.orderFields.length > 0) {
+            res += ` ORDER BY ${this.orderFields.join(", ")}`;
+        }
+        if (this.limitCount) {
+            res += ` LIMIT ${this.limitCount}`;
+        }
+        return res;
+    }
 }
 
 function main() {
-  const usersQuery = new QueryBuilder('users')
-    .select('id', 'name', 'email')
-    .where('age > 18')
-    .where("country = 'Cri'") // Esto debe de hacer una condición AND
-    .orderBy('name', 'ASC')
-    .limit(10)
-    .execute();
+    const usersQuery = new QueryBuilder("users")
+        .select()
+        .where("age > 18")
+        .where("country = 'Cri'") // Esto debe de hacer una condición AND
+        .orderBy("name", "ASC")
+        .limit(10)
+        .execute();
 
-  console.log('%cConsulta:\n', COLORS.red);
-  console.log(usersQuery);
+    console.log("\n");
+    console.log("%cConsulta:\n", COLORS.red);
+    console.log(usersQuery);
+    console.log("\n");
 }
 
 main();
