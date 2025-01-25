@@ -12,3 +12,80 @@
  * https://refactoring.guru/es/design-patterns/factory-method
  *
  */
+
+import { COLORS } from "../helpers/colors.ts";
+
+interface Hamburger {
+    prepare(): void;
+}
+
+class ChickenHamburger implements Hamburger {
+    prepare(): void {
+        console.log("Preparing a %cchicken burger.", COLORS.yellow);
+    }
+}
+
+class BeefHamburger implements Hamburger {
+    prepare(): void {
+        console.log("Preparing a %cbeef burger.", COLORS.brown);
+    }
+}
+
+class BeanHamburger implements Hamburger {
+    prepare(): void {
+        console.log("Preparing a %cbean burger.", COLORS.red);
+    }
+}
+
+abstract class Restaurant {
+    protected abstract createHamburger(): Hamburger;
+
+    orderHamburger(): void {
+        const hamburger = this.createHamburger();
+        hamburger.prepare();
+    }
+}
+
+class ChickenRestaurant extends Restaurant {
+    override createHamburger(): Hamburger {
+        return new ChickenHamburger();
+    }
+}
+
+class BeefRestaurant extends Restaurant {
+    override createHamburger(): Hamburger {
+        return new BeefHamburger();
+    }
+}
+
+class BeanRestaurant extends Restaurant {
+    override createHamburger(): Hamburger {
+        return new BeanHamburger();
+    }
+}
+
+function main() {
+    let restaurant: Restaurant;
+
+    while (1) {
+        const burgerType = prompt("What type of burger do you want? (chicken/beef/bean)");
+
+        switch (burgerType) {
+            case "chicken":
+                restaurant = new ChickenRestaurant();
+                break;
+            case "beef":
+                restaurant = new BeefRestaurant();
+                break;
+            case "bean":
+                restaurant = new BeanRestaurant();
+                break;
+            default:
+                throw new Error("Invalid burger type.");
+        }
+
+        restaurant.orderHamburger();
+    }
+}
+
+main();
